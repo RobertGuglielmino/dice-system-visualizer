@@ -1,12 +1,15 @@
-import SectionGraph from "./SectionGraph";
-import { useDice } from "./store/store";
-import { countSuccesses, rollTotal } from "./utils/equations";
 
-interface SectionGraphProps {
+import SectionGraph2 from "./SectionGraph2";
+import SectionLabel from "./SectionLabel";
+import { useDice } from "./store/store";
+import { rollTotal } from "./utils/equations";
+import { probabilityGroups } from "./utils/probabilityGroups";
+
+interface RollTotalProps {
   renderResults: Map<number, number>;
 }
 
-export default function RollTotal({  }: SectionGraphProps) {
+export default function RollTotal({}: RollTotalProps) {
   const dice = useDice((state) => state);
 
   const nums: number[] = [0, 1, 2, 3, 4];
@@ -15,11 +18,17 @@ export default function RollTotal({  }: SectionGraphProps) {
     <div className="flex flex-row w-50 h-200 rounded-lg">
       {dice.scaleType === "numDice" && (
         <>
+          <SectionLabel
+            renderResults={probabilityGroups(
+              dice.trackingThresholds,
+              rollTotal(dice.currentDiceNum, dice.currentDiceSize),
+            )}
+          />
           {nums.map((num) => (
-            <SectionGraph
-              renderResults={rollTotal(
-                dice.currentDiceNum + num,
-                dice.currentDiceSize,
+            <SectionGraph2
+              renderResults={probabilityGroups(
+                dice.trackingThresholds,
+                rollTotal(dice.currentDiceNum + num, dice.currentDiceSize),
               )}
             />
           ))}
@@ -27,11 +36,17 @@ export default function RollTotal({  }: SectionGraphProps) {
       )}
       {dice.scaleType === "mod" && (
         <>
+          <SectionLabel
+            renderResults={probabilityGroups(
+              dice.trackingThresholds,
+              rollTotal(dice.currentDiceNum, dice.currentDiceSize),
+            )}
+          />
           {nums.map((num) => (
-            <SectionGraph
-              renderResults={rollTotal(
-                dice.currentDiceNum,
-                dice.currentDiceSize + num,
+            <SectionGraph2
+              renderResults={probabilityGroups(
+                dice.trackingThresholds,
+                rollTotal(dice.currentDiceNum, dice.currentDiceSize + num),
               )}
             />
           ))}

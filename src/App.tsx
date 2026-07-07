@@ -9,8 +9,6 @@ import {
 } from "./utils/equations";
 import { useDice } from "./store/store";
 import DiceSystemSelect from "./DiceSystemSelect";
-import { useState } from "react";
-import SectionGraph from "./SectionGraph";
 import CountSuccesses from "./CountSuccesses";
 import RollTotal from "./RollTotal";
 import HighestDie from "./HighestDie";
@@ -20,32 +18,6 @@ function App() {
   const dice = useDice((state) => state);
 
   const sections = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-
-  // const diceSizes = [4, 6, 8, 10, 12, 20];
-
-  const [selectedKeys, setSelectedKeys] = useState<Set<number>>(new Set());
-
-  const getSections = (): number[][] => {
-    // Keys in display order (reversed)
-    const displayOrder = Array.from(renderResults().keys()).reverse();
-    const sections: number[][] = [];
-    let current: number[] = [];
-
-    for (let i = 0; i < displayOrder.length; i++) {
-      current.push(displayOrder[i]);
-      const nextKey = displayOrder[i + 1];
-      if (nextKey !== undefined) {
-        sections.push(current);
-        current = [];
-      }
-    }
-    if (current.length > 0) sections.push(current);
-    return sections;
-  };
-
-  const sum = Array.from(selectedKeys).reduce((acc, key) => {
-    return acc + (renderResults().get(key) ?? 0);
-  }, 0);
 
   function renderResults() {
     switch (dice.systemType) {
@@ -89,11 +61,10 @@ function App() {
     }
   }
 
-  console.log(getSections());
 
   return (
     <>
-      <div className="flex flex-row justify-around px-64 py-8 transition-transform duration-300 ease-in-out bg-mist-50 min-h-screen">
+      <div className="flex flex-row justify-around px-32 py-8 transition-all duration-300 ease-in-out bg-mist-50 min-h-screen">
         <div className="flex flex-col p-2 gap-8 items-center">
           <div className="flex flex-row items-center w-full">
             <div className="text-xs text-gray-400 w-20">
@@ -102,7 +73,14 @@ function App() {
             <div className="flex-1 flex justify-center">
               <DiceSystemSelect />
             </div>
-            <DiceScaleSelect />
+          </div>
+          <div className="flex flex-row items-center w-full">
+            <div className="text-xs text-center text-gray-400 w-20 h-40">
+              then, choose how you would modify the dice pool
+            </div>
+            <div className="flex-1 flex justify-center">
+              <DiceScaleSelect />
+            </div>
           </div>
 
           <div className="flex flex-row items-center w-full">
@@ -150,7 +128,7 @@ function App() {
         </div>
 
         <div className="flex flex-row justify-center items-center gap-6">
-          <div className="flex flex-row w-50 h-200 rounded-lg">
+          <div className="flex flex-row w-100 h-200 rounded-lg">
             {dice.systemType === "rollTotal" && (
               <RollTotal renderResults={undefined} />
             )}

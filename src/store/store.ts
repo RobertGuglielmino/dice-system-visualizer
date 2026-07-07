@@ -7,6 +7,7 @@ interface DiceType {
   scaleType: "mod" | "numDice" | "numDrop" | "numKeep";
   systemType: "rollTotal" | "countSuccesses" | "highestDie";
   successThreshold: number;
+  trackingThresholds: number[];
   dropNumber: number;
 }
 
@@ -17,6 +18,7 @@ interface DiceActions {
   setSuccessThreshold: (threshold: number) => void;
   setDropNumber: (drop: number) => void;
   setThreshold: (threshold: number) => void;
+  setTrackingThreshold: (threshold: number[]) => void;
 
   setCurrentDiceNum: (num: number) => void;
   setCurrentDiceSize: (size: number) => void;
@@ -31,6 +33,8 @@ export const useDice = create<DiceType & DiceActions>((set) => ({
   successThreshold: 0,
   dropNumber: 0,
 
+  trackingThresholds: [1, 2],
+
   setSystemType: (type: "rollTotal" | "countSuccesses" | "highestDie") =>
     set({ systemType: type }),
   setScaleType: (type: "mod" | "numDice" | "numDrop" | "numKeep") =>
@@ -38,6 +42,7 @@ export const useDice = create<DiceType & DiceActions>((set) => ({
   setSuccessThreshold: (threshold: number) => set({ successThreshold: threshold }),
   setDropNumber: (drop: number) => set({ dropNumber: drop }),
   setThreshold: (threshold: number) => set({ currentThreshold: threshold }),
+  setTrackingThreshold: (threshold: number[]) => set({ trackingThresholds: threshold }),
 
   setCurrentDiceNum: (num: number) => set({ currentDiceNum: num }),
   setCurrentDiceSize: (size: number) => set({ currentDiceSize: size }),

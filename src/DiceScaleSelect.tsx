@@ -17,7 +17,7 @@ export default function DiceScaleSelect() {
           </label>
         </div>
 
-        <div className="flex justify-between">
+       {["rollTotal", "countSuccesses"].includes(dice.systemType) && <div className="flex justify-between">
           <label className="flex gap-1 text-center">
             <input
               type="radio"
@@ -27,9 +27,9 @@ export default function DiceScaleSelect() {
             />
             Modifier
           </label>
-        </div>
+        </div>}
 
-        <div className="flex justify-between">
+        {["rollTotal", "countSuccesses"].includes(dice.systemType) && <div className="flex justify-between">
           <label className="flex gap-1 text-center">
             <input
               type="radio"
@@ -39,9 +39,9 @@ export default function DiceScaleSelect() {
             />
             Number of Dice to Drop
           </label>
-        </div>
+        </div>}
 
-        <div className="flex justify-between">
+        {["rollTotal", "countSuccesses"].includes(dice.systemType) && <div className="flex justify-between">
           <label className="flex gap-1 text-center">
             <input
               type="radio"
@@ -51,7 +51,7 @@ export default function DiceScaleSelect() {
             />
             Number of Dice to Keep
           </label>
-        </div>
+        </div>}
       </div>
     );
 }
