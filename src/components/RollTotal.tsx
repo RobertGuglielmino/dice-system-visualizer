@@ -1,9 +1,9 @@
 
 import SectionGraph2 from "./SectionGraph2";
 import SectionLabel from "./SectionLabel";
-import { useDice } from "./store/store";
-import { rollTotal } from "./utils/equations";
-import { probabilityGroups } from "./utils/probabilityGroups";
+import { useDice } from "../store/store";
+import { rollTotal } from "../utils/equations";
+import { probabilityGroups } from "../utils/probabilityGroups";
 
 interface RollTotalProps {
   renderResults: Map<number, number>;
@@ -20,16 +20,17 @@ export default function RollTotal({}: RollTotalProps) {
         <>
           <SectionLabel
             renderResults={probabilityGroups(
-              dice.trackingThresholds,
+              [dice.successThreshold],
               rollTotal(dice.currentDiceNum, dice.currentDiceSize),
             )}
           />
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
-                dice.trackingThresholds,
+                [dice.successThreshold],
                 rollTotal(dice.currentDiceNum + num, dice.currentDiceSize),
               )}
+              label={`${dice.currentDiceNum + num}`}
             />
           ))}
         </>
@@ -38,16 +39,17 @@ export default function RollTotal({}: RollTotalProps) {
         <>
           <SectionLabel
             renderResults={probabilityGroups(
-              dice.trackingThresholds,
+              [dice.successThreshold],
               rollTotal(dice.currentDiceNum, dice.currentDiceSize),
             )}
           />
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
-                dice.trackingThresholds,
+                [dice.successThreshold],
                 rollTotal(dice.currentDiceNum, dice.currentDiceSize + num),
               )}
+              label={`${dice.currentDiceSize + num}`}
             />
           ))}
         </>

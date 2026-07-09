@@ -1,8 +1,8 @@
 import SectionGraph2 from "./SectionGraph2";
 import SectionLabel from "./SectionLabel";
-import { useDice } from "./store/store";
-import { countSuccesses } from "./utils/equations";
-import { probabilityGroups } from "./utils/probabilityGroups";
+import { useDice } from "../store/store";
+import { countSuccesses } from "../utils/equations";
+import { probabilityGroups } from "../utils/probabilityGroups";
 
 interface CountSuccessesProps {
   renderResults: Map<number, number>;
@@ -39,7 +39,7 @@ export default function CountSuccesses({}: CountSuccessesProps) {
         <>
           <SectionLabel
             renderResults={probabilityGroups(
-              dice.trackingThresholds,
+              [dice.successThreshold],
               countSuccesses(
                 dice.currentDiceNum,
                 dice.currentDiceSize,
@@ -51,13 +51,14 @@ export default function CountSuccesses({}: CountSuccessesProps) {
             <SectionGraph2
               key={num}
               renderResults={probabilityGroups(
-                dice.trackingThresholds,
+                [dice.successThreshold],
                 countSuccesses(
                   dice.currentDiceNum + num,
                   dice.currentDiceSize,
                   dice.successThreshold,
                 ),
               )}
+              label={`${dice.currentDiceNum + num}`}
             />
           ))}
         </>
@@ -66,7 +67,7 @@ export default function CountSuccesses({}: CountSuccessesProps) {
         <>
           <SectionLabel
             renderResults={probabilityGroups(
-              dice.trackingThresholds,
+              [dice.successThreshold],
               countSuccesses(
                 dice.currentDiceNum,
                 dice.currentDiceSize,
@@ -77,19 +78,18 @@ export default function CountSuccesses({}: CountSuccessesProps) {
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
-                dice.trackingThresholds,
+                [dice.successThreshold],
                 countSuccesses(
                   dice.currentDiceNum,
                   dice.currentDiceSize,
                   dice.successThreshold,
                 ),
               )}
+              label={`${num}`}
             />
           ))}
         </>
       )}
-      {dice.scaleType === "numKeep" && <></>}
-      {dice.scaleType === "numDrop" && <></>}
     </div>
   );
 }

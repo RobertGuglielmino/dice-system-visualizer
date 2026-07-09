@@ -8,11 +8,11 @@ import {
   rollTotalProbability,
 } from "./utils/equations";
 import { useDice } from "./store/store";
-import DiceSystemSelect from "./DiceSystemSelect";
-import CountSuccesses from "./CountSuccesses";
-import RollTotal from "./RollTotal";
-import HighestDie from "./HighestDie";
-import DiceScaleSelect from "./DiceScaleSelect";
+import DiceSystemSelect from "./components/DiceSystemSelect";
+import CountSuccesses from "./components/CountSuccesses";
+import RollTotal from "./components/RollTotal";
+import HighestDie from "./components/HighestDie";
+import DiceScaleSelect from "./components/DiceScaleSelect";
 
 function App() {
   const dice = useDice((state) => state);
@@ -61,28 +61,20 @@ function App() {
     }
   }
 
-
   return (
     <>
       <div className="flex flex-row justify-around px-32 py-8 transition-all duration-300 ease-in-out bg-mist-50 min-h-screen">
         <div className="flex flex-col p-2 gap-8 items-center">
           <div className="flex flex-row items-center w-full">
-            <div className="text-xs text-gray-400 w-20">
-              first, choose a dice system
-            </div>
-            <div className="flex-1 flex justify-center">
-              <DiceSystemSelect />
-            </div>
-          </div>
-          <div className="flex flex-row items-center w-full">
-            <div className="text-xs text-center text-gray-400 w-20 h-40">
-              then, choose how you would modify the dice pool
-            </div>
-            <div className="flex-1 flex justify-center">
-              <DiceScaleSelect />
+            <div className="flex flex-row items-center w-full">
+              <div className="text-xs text-gray-400 w-20">
+                first, choose a dice system
+              </div>
+              <div className="flex-1 flex justify-center">
+                <DiceSystemSelect />
+              </div>
             </div>
           </div>
-
           <div className="flex flex-row items-center w-full">
             <div className="text-xs text-gray-400 w-20">
               then, select a dice pool
@@ -110,21 +102,130 @@ function App() {
             </div>
           </div>
 
-          <div className="flex flex-row items-center w-full">
-            <div className="text-xs text-gray-400 w-20">
-              and a success threshold
-            </div>
-            <div className="flex-1 flex justify-center">
-              <div className="flex flex-row text-3xl font-bold">
-                <input
-                  type="number"
-                  value={dice.currentThreshold}
-                  className="text-right w-12 border border-gray-400 rounded"
-                  onChange={(e) => dice.setThreshold(Number(e.target.value))}
-                />
+          {dice.systemType === "rollTotal" && (
+            <>
+              <div className="flex flex-row items-center w-full">
+                <div className="text-xs text-gray-400 w-20">
+                  and a success threshold
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <div className="flex flex-row text-3xl font-bold">
+                    <input
+                      type="number"
+                      value={dice.successThreshold}
+                      className="text-right w-12 border border-gray-400 rounded"
+                      onChange={(e) =>
+                        dice.setSuccessThreshold(Number(e.target.value))
+                      }
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+              <div className="flex flex-row justify-center w-full">
+                <div className="text-xs text-gray-400 w-20 h-40">
+                  then, choose how you would modify the dice pool
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <DiceScaleSelect />
+                </div>
+              </div>
+            </>
+          )}
+
+          {dice.systemType === "countSuccesses" && (
+            <>
+              <div className="flex flex-row items-center w-full">
+                <div className="text-xs text-gray-400 w-20">
+                  and a success threshold
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <div className="flex flex-row text-3xl font-bold">
+                    <input
+                      type="number"
+                      value={dice.successThreshold}
+                      className="text-right w-12 border border-gray-400 rounded"
+                      onChange={(e) =>
+                        dice.setSuccessThreshold(Number(e.target.value))
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-row justify-center w-full">
+                <div className="text-xs  text-gray-400 w-20 h-40">
+                  then, choose how you would modify the dice pool
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <DiceScaleSelect />
+                </div>
+              </div>
+            </>
+          )}
+          {dice.systemType === "highestDie" && (
+            <>
+              <div className="flex flex-col justify-center w-full">
+                <div className="flex flex-row items-center w-full">
+                  <div className="text-xs text-gray-400 w-20">
+                    a success threshold
+                  </div>
+                  <div className="flex-1 flex justify-center">
+                    <div className="flex flex-row text-3xl font-bold">
+                      <input
+                        type="number"
+                        value={dice.successThreshold}
+                        className="text-right w-12 border border-gray-400 rounded"
+                        onChange={(e) =>
+                          dice.setSuccessThreshold(Number(e.target.value))
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-row items-center w-full">
+                  <div className="text-xs text-gray-400 w-20">
+                    a 2nd success threshold (optional)
+                  </div>
+                  <div className="flex-1 flex justify-center">
+                    <div className="flex flex-row text-3xl font-bold">
+                      <input
+                        type="number"
+                        value={dice.successThreshold2}
+                        className="text-right w-12 border border-gray-400 rounded"
+                        onChange={(e) =>
+                          dice.setSuccessThreshold2(Number(e.target.value))
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-row items-center w-full">
+                  <div className="text-xs text-gray-400 w-20">
+                    a 3rd success threshold (optional)
+                  </div>
+                  <div className="flex-1 flex justify-center">
+                    <div className="flex flex-row text-3xl font-bold">
+                      <input
+                        type="number"
+                        value={dice.successThreshold3}
+                        className="text-right w-12 border border-gray-400 rounded"
+                        onChange={(e) =>
+                          dice.setSuccessThreshold3(Number(e.target.value))
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-row justify-center w-full">
+                <div className="text-xs text-gray-400 w-20 h-40">
+                  then, choose how you would modify the dice pool
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <DiceScaleSelect />
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="flex flex-row justify-center items-center gap-6">
@@ -139,19 +240,6 @@ function App() {
               <HighestDie renderResults={undefined} />
             )}
 
-            <div className="flex flex-col w-5 h-full transition-transform duration-300 ease-in-out py-4">
-              {sections.reverse().map((key, index) => {
-                return (
-                  <div
-                    key={index}
-                    style={{ flex: 10 }}
-                    className="flex items-center justify-center border-b border-b-gray-300 transition-transform duration-300 ease-in-out text-gray-300 text-xs text-center"
-                  >
-                    {key}
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </div>
