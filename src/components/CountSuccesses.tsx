@@ -13,6 +13,8 @@ export default function CountSuccesses({}: CountSuccessesProps) {
 
   const nums: number[] = [0, 1, 2, 3, 4];
 
+  console.log("dice", dice);
+
   console.log(
     "count successes",
     countSuccesses(
@@ -24,7 +26,7 @@ export default function CountSuccesses({}: CountSuccessesProps) {
   console.log(
     "probability groups",
     probabilityGroups(
-      [1],
+      [dice.successThreshold],
       countSuccesses(
         dice.currentDiceNum,
         dice.currentDiceSize,

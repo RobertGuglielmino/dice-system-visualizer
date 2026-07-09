@@ -8,6 +8,7 @@ export   function probabilityGroups(
     const results = [];
     const keys = Array.from(probabilities.keys()).reverse();
 
+
     keys.forEach((key) => {
       probSum += probabilities.get(key) ?? 0;
       count++;

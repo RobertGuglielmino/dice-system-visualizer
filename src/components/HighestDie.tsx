@@ -25,7 +25,7 @@ export default function HighestDie({}: SectionGraphProps) {
     highestDie(
       dice.currentDiceNum,
       dice.currentDiceSize,
-      dice.successThreshold,
+      0
     )
   );
   console.log(
@@ -35,7 +35,7 @@ export default function HighestDie({}: SectionGraphProps) {
       highestDie(
         dice.currentDiceNum,
         dice.currentDiceSize,
-        dice.successThreshold,
+        0,
       ),
     ),
   );
@@ -50,7 +50,7 @@ export default function HighestDie({}: SectionGraphProps) {
               highestDie(
                 dice.currentDiceNum,
                 dice.currentDiceSize,
-                dice.successThreshold,
+                dice.dropNumber,
               ),
             )}
           />

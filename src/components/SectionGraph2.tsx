@@ -7,7 +7,6 @@ interface SectionGraphProps {
 
 export default function SectionGraph2({ renderResults, label }: SectionGraphProps) {
 
-  console.log("renderResults", renderResults);
   return (<div className="flex flex-col w-50 h-full rounded-lg transition-transform duration-300 ease-in-out select-none py-4">
     <div className="text-center text-xl text-gray-800">{label}</div>
       <div className="flex flex-col w-20 h-full rounded-lg transition-transform duration-300 ease-in-out select-none py-4">

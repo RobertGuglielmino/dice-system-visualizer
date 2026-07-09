@@ -60,6 +60,8 @@ function App() {
         return new Map<number, number>();
     }
   }
+  console.log("count Sucesses", countSuccesses(dice.currentDiceNum, dice.currentDiceSize, dice.successThreshold));
+  console.log("count Probabilities", countSuccessesProbability(dice.currentDiceNum, dice.currentDiceSize, dice.successThreshold));
 
   return (
     <>
