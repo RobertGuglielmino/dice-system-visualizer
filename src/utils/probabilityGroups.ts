@@ -1,4 +1,4 @@
-export   function probabilityGroups(
+export function probabilityGroups(
     thresholds: number[],
     probabilities: Map<number, number>,
   ): { threshold: number; probability: number; count: number }[] {

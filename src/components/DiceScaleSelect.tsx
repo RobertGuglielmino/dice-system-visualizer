@@ -6,8 +6,8 @@ export default function DiceScaleSelect() {
     return (
       <div className="flex flex-col gap-2 p-1 w-80">
         {["countSuccesses", "highestDie"].includes(dice.systemType) && (
-          <div>
-            <label className="flex gap-1 text-center">
+          <div className="flex justify-center">
+            <label className="flex gap-1 w-35 justify-start">
               <input
                 type="radio"
                 name="scale"
@@ -20,8 +20,8 @@ export default function DiceScaleSelect() {
         )}
 
         {["rollTotal", "countSuccesses"].includes(dice.systemType) && (
-          <div className="flex justify-between">
-            <label className="flex gap-1 text-center">
+          <div className="flex justify-center">
+            <label className="flex gap-1 w-35 justify-start">
               <input
                 type="radio"
                 name="scale"
@@ -33,16 +33,16 @@ export default function DiceScaleSelect() {
           </div>
         )}
 
-        {["highestDie", "countSuccesses"].includes(dice.systemType) && (
-          <div className="flex justify-between">
-            <label className="flex gap-1 text-center">
+        {["highestDie"].includes(dice.systemType) && (
+          <div className="flex justify-center">
+            <label className="flex gap-1 w-35 justify-start">
               <input
                 type="radio"
                 name="scale"
                 checked={dice.scaleType === "numDrop"}
                 onChange={() => dice.setScaleType("numDrop")}
               />
-              Number of Dice to Drop
+              Drop Highest
             </label>
           </div>
         )}

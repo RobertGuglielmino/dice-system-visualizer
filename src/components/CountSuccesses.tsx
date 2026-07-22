@@ -60,7 +60,7 @@ export default function CountSuccesses({}: CountSuccessesProps) {
                   dice.successThreshold,
                 ),
               )}
-              label={`${dice.currentDiceNum + num}`}
+              label={`${dice.currentDiceNum + num}d${dice.currentDiceSize}`}
             />
           ))}
         </>
@@ -87,7 +87,7 @@ export default function CountSuccesses({}: CountSuccessesProps) {
                   dice.successThreshold,
                 ),
               )}
-              label={`${num}`}
+              label={`+${num}`}
             />
           ))}
         </>

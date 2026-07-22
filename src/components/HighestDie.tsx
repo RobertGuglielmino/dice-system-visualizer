@@ -64,13 +64,23 @@ export default function HighestDie({}: SectionGraphProps) {
                   dice.dropNumber,
                 ),
               )}
-              label={`${dice.currentDiceNum + num}`}
+              label={`${dice.currentDiceNum + num}d${dice.currentDiceSize}`}
             />
           ))}
         </>
       )}
       {dice.scaleType === "numDrop" && (
         <>
+          <SectionLabel
+            renderResults={probabilityGroups(
+              thresholds,
+              highestDie(
+                dice.currentDiceNum,
+                dice.currentDiceSize,
+                dice.dropNumber,
+              ),
+            )}
+          />
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
@@ -81,7 +91,7 @@ export default function HighestDie({}: SectionGraphProps) {
                   dice.dropNumber + num,
                 ),
               )}
-              label={`${dice.dropNumber + num}`}
+              label={`${dice.currentDiceNum}d${dice.currentDiceSize}d${num}`}
             />
           ))}
         </>

@@ -177,7 +177,7 @@ function App() {
                         value={dice.successThreshold}
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
-                          dice.setSuccessThreshold(Number(e.target.value))
+                          dice.setSuccessThreshold(Math.max(Number(e.target.value), 0))
                         }
                       />
                     </div>
@@ -194,7 +194,7 @@ function App() {
                         value={dice.successThreshold2}
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
-                          dice.setSuccessThreshold2(Number(e.target.value))
+                          dice.setSuccessThreshold2(Math.max(Number(e.target.value), 0))
                         }
                       />
                     </div>
@@ -211,7 +211,7 @@ function App() {
                         value={dice.successThreshold3}
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
-                          dice.setSuccessThreshold3(Number(e.target.value))
+                          dice.setSuccessThreshold3(Math.max(Number(e.target.value), 0))
                         }
                       />
                     </div>

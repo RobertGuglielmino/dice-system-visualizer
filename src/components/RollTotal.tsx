@@ -30,7 +30,7 @@ export default function RollTotal({}: RollTotalProps) {
                 [dice.successThreshold],
                 rollTotal(dice.currentDiceNum + num, dice.currentDiceSize),
               )}
-              label={`${dice.currentDiceNum + num}`}
+              label={`+${dice.currentDiceSize + num}`}
             />
           ))}
         </>
@@ -49,7 +49,7 @@ export default function RollTotal({}: RollTotalProps) {
                 [dice.successThreshold],
                 rollTotal(dice.currentDiceNum, dice.currentDiceSize + num),
               )}
-              label={`${dice.currentDiceSize + num}`}
+              label={`+${num}`}
             />
           ))}
         </>
