@@ -35,7 +35,7 @@ export default function CountSuccesses({}: CountSuccessesProps) {
     countSuccessOutput.forEach((value, key) =>
       output.push({
         threshold: key,
-        probability: Math.min(Math.max(value, 0), 100),
+        probability: Math.min(Math.max(value, 1), 100),
         count: 1,
       }),
     );

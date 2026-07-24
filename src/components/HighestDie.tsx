@@ -1,12 +1,10 @@
-
 import SectionGraph2 from "./SectionGraph2";
 import SectionLabel from "./SectionLabel";
 import { useDice } from "../store/store";
 import { highestDie } from "../utils/equations";
 import { probabilityGroups } from "../utils/probabilityGroups";
 
-interface SectionGraphProps {
-}
+interface SectionGraphProps {}
 
 export default function HighestDie({}: SectionGraphProps) {
   const dice = useDice((state) => state);
@@ -19,12 +17,10 @@ export default function HighestDie({}: SectionGraphProps) {
     dice.successThreshold3,
   ].filter((threshold) => threshold > 0);
 
-
-  
-    const baseRenderLabels = probabilityGroups(
-      thresholds,
-      highestDie(dice.currentDiceNum, dice.currentDiceSize, dice.dropNumber),
-    );
+  const baseRenderLabels = probabilityGroups(
+    thresholds,
+    highestDie(dice.currentDiceNum, dice.currentDiceSize, dice.dropNumber),
+  );
 
   return (
     <div className="flex flex-row w-50 h-200 rounded-lg gap-4">

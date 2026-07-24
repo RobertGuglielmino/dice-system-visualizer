@@ -25,13 +25,13 @@ interface DiceActions {
 };
 
 export const useDice = create<DiceType & DiceActions>((set) => ({
-  currentDiceNum: 0,
-  currentDiceSize: 0,
+  currentDiceNum: 1,
+  currentDiceSize: 1,
   systemType: "rollTotal",
   scaleType: "numDice",
-  successThreshold: 0,
-  successThreshold2: 0,
-  successThreshold3: 0,
+  successThreshold: 1,
+  successThreshold2: 1,
+  successThreshold3: 1,
   dropNumber: 0,
 
   setSystemType: (type: "rollTotal" | "countSuccesses" | "highestDie") =>

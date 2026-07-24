@@ -132,7 +132,7 @@ function App() {
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
                           setThresholdBounded(
-                            Math.max(Number(e.target.value), 0),
+                            Math.max(Number(e.target.value), 1),
                           )
                         }
                       />
@@ -151,7 +151,7 @@ function App() {
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
                           dice.setSuccessThreshold2(
-                            Math.max(Number(e.target.value), 0),
+                            Math.max(Number(e.target.value), 1),
                           )
                         }
                       />
@@ -170,7 +170,7 @@ function App() {
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
                           dice.setSuccessThreshold3(
-                            Math.max(Number(e.target.value), 0),
+                            Math.max(Number(e.target.value), 1),
                           )
                         }
                       />
