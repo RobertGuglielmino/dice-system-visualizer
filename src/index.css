@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+  --color-space-blue: #0B3954;
+  --color-bell-blue: #009DDC;
+  --color-tiger: #F26430;
+  --color-shamrock: #009B72;
+  --color-ivory: #F5FBEF;
+}
 
 h1,
 h2 {

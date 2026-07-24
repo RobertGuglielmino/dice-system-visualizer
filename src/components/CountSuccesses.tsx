@@ -1,8 +1,8 @@
-import SectionGraph2 from "./SectionGraph2";
-import SectionLabel from "./SectionLabel";
 import { useDice } from "../store/store";
 import { countSuccesses } from "../utils/equations";
-import { probabilityGroups } from "../utils/probabilityGroups";
+import type { ProbabilityVisualBlock } from "../types/types";
+import CountSuccessesLabel from "./CountSuccessesLabel";
+import SectionGraphCountSuccesses from "./SectionGraphCountSuccesses";
 
 interface CountSuccessesProps {
   renderResults: Map<number, number>;
@@ -13,53 +13,51 @@ export default function CountSuccesses({}: CountSuccessesProps) {
 
   const nums: number[] = [0, 1, 2, 3, 4];
 
-  console.log("dice", dice);
-
-  console.log(
-    "count successes",
+  const baseRenderLabels = countSuccessesToRenderResults(
     countSuccesses(
       dice.currentDiceNum,
       dice.currentDiceSize,
       dice.successThreshold,
     ),
   );
-  console.log(
-    "probability groups",
-    probabilityGroups(
-      [dice.successThreshold],
-      countSuccesses(
-        dice.currentDiceNum,
-        dice.currentDiceSize,
-        dice.successThreshold,
-      ),
+
+  const baseRenderLabelsReverse = countSuccessesToRenderResults(
+    countSuccesses(
+      dice.currentDiceNum,
+      dice.currentDiceSize,
+      dice.successThreshold,
     ),
-  );
+  ).reverse();
+
+  function countSuccessesToRenderResults(
+    countSuccessOutput: Map<number, number>,
+  ): ProbabilityVisualBlock[] {
+    const output = [];
+    countSuccessOutput.forEach((value, key) =>
+      output.push({
+        threshold: key,
+        probability: Math.min(Math.max(value, 0), 100),
+        count: 1,
+      }),
+    );
+    return output;
+  }
 
   return (
-    <div className="flex flex-row w-100 h-200 rounded-lg">
+    <div className="flex flex-row w-100 h-200 rounded-lg gap-4">
       {dice.scaleType === "numDice" && (
         <>
-          <SectionLabel
-            renderResults={probabilityGroups(
-              [dice.successThreshold],
-              countSuccesses(
-                dice.currentDiceNum,
-                dice.currentDiceSize,
-                dice.successThreshold,
-              ),
-            )}
-          />
+          <CountSuccessesLabel renderResults={baseRenderLabelsReverse} />
           {nums.map((num) => (
-            <SectionGraph2
+            <SectionGraphCountSuccesses
               key={num}
-              renderResults={probabilityGroups(
-                [dice.successThreshold],
+              renderResults={countSuccessesToRenderResults(
                 countSuccesses(
                   dice.currentDiceNum + num,
                   dice.currentDiceSize,
                   dice.successThreshold,
                 ),
-              )}
+              ).reverse()}
               label={`${dice.currentDiceNum + num}d${dice.currentDiceSize}`}
             />
           ))}
@@ -67,24 +65,14 @@ export default function CountSuccesses({}: CountSuccessesProps) {
       )}
       {dice.scaleType === "mod" && (
         <>
-          <SectionLabel
-            renderResults={probabilityGroups(
-              [dice.successThreshold],
-              countSuccesses(
-                dice.currentDiceNum,
-                dice.currentDiceSize,
-                dice.successThreshold,
-              ),
-            )}
-          />
+          <CountSuccessesLabel renderResults={baseRenderLabels} />
           {nums.map((num) => (
-            <SectionGraph2
-              renderResults={probabilityGroups(
-                [dice.successThreshold],
+            <SectionGraphCountSuccesses
+              renderResults={countSuccessesToRenderResults(
                 countSuccesses(
                   dice.currentDiceNum,
                   dice.currentDiceSize,
-                  dice.successThreshold,
+                  dice.successThreshold + num,
                 ),
               )}
               label={`+${num}`}

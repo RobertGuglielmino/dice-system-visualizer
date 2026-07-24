@@ -19,41 +19,19 @@ export default function HighestDie({}: SectionGraphProps) {
     dice.successThreshold2,
     dice.successThreshold3,
   ].filter((threshold) => threshold > 0);
-  console.log("thresholds", thresholds);
-  console.log(
-    "thresholds22",
-    highestDie(
-      dice.currentDiceNum,
-      dice.currentDiceSize,
-      0
-    )
-  );
-  console.log(
-    "thresholds2",
-    probabilityGroups(
+
+
+  
+    const baseRenderLabels = probabilityGroups(
       thresholds,
-      highestDie(
-        dice.currentDiceNum,
-        dice.currentDiceSize,
-        0,
-      ),
-    ),
-  );
+      highestDie(dice.currentDiceNum, dice.currentDiceSize, dice.dropNumber),
+    );
 
   return (
-    <div className="flex flex-row w-50 h-200 rounded-lg">
+    <div className="flex flex-row w-50 h-200 rounded-lg gap-4">
       {dice.scaleType === "numDice" && (
         <>
-          <SectionLabel
-            renderResults={probabilityGroups(
-              thresholds,
-              highestDie(
-                dice.currentDiceNum,
-                dice.currentDiceSize,
-                dice.dropNumber,
-              ),
-            )}
-          />
+          <SectionLabel renderResults={baseRenderLabels} />
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
@@ -71,16 +49,7 @@ export default function HighestDie({}: SectionGraphProps) {
       )}
       {dice.scaleType === "numDrop" && (
         <>
-          <SectionLabel
-            renderResults={probabilityGroups(
-              thresholds,
-              highestDie(
-                dice.currentDiceNum,
-                dice.currentDiceSize,
-                dice.dropNumber,
-              ),
-            )}
-          />
+          <SectionLabel renderResults={baseRenderLabels} />
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
@@ -91,7 +60,7 @@ export default function HighestDie({}: SectionGraphProps) {
                   dice.dropNumber + num,
                 ),
               )}
-              label={`${dice.currentDiceNum}d${dice.currentDiceSize}d${num}`}
+              label={`${dice.currentDiceNum}d${dice.currentDiceSize}, drop ${num}`}
             />
           ))}
         </>

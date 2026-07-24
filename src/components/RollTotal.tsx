@@ -11,19 +11,18 @@ interface RollTotalProps {
 
 export default function RollTotal({}: RollTotalProps) {
   const dice = useDice((state) => state);
-
   const nums: number[] = [0, 1, 2, 3, 4];
+  
+  const baseRenderLabels = probabilityGroups(
+    [dice.successThreshold],
+    rollTotal(dice.currentDiceNum, dice.currentDiceSize),
+  );
 
   return (
-    <div className="flex flex-row w-50 h-200 rounded-lg">
+    <div className="flex flex-row w-50 h-200 rounded-lg gap-4">
       {dice.scaleType === "numDice" && (
         <>
-          <SectionLabel
-            renderResults={probabilityGroups(
-              [dice.successThreshold],
-              rollTotal(dice.currentDiceNum, dice.currentDiceSize),
-            )}
-          />
+          <SectionLabel renderResults={baseRenderLabels} />
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
@@ -37,17 +36,12 @@ export default function RollTotal({}: RollTotalProps) {
       )}
       {dice.scaleType === "mod" && (
         <>
-          <SectionLabel
-            renderResults={probabilityGroups(
-              [dice.successThreshold],
-              rollTotal(dice.currentDiceNum, dice.currentDiceSize),
-            )}
-          />
+          <SectionLabel renderResults={baseRenderLabels} />
           {nums.map((num) => (
             <SectionGraph2
               renderResults={probabilityGroups(
-                [dice.successThreshold],
-                rollTotal(dice.currentDiceNum, dice.currentDiceSize + num),
+                [dice.successThreshold - num],
+                rollTotal(dice.currentDiceNum, dice.currentDiceSize),
               )}
               label={`+${num}`}
             />

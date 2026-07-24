@@ -17,11 +17,17 @@ export default function DiceSystemSelect() {
     dice.setSuccessThreshold3(0);
   }
   
+  function setHighestDie() {
+    dice.setSystemType("highestDie");
+    dice.setScaleType("numDice");
+  }
+  
     return (
       <div className="flex flex-col gap-2 p-1 w-80">
         <div className="flex justify-center">
           <label className="flex gap-1 w-35 justify-start">
             <input
+              className="accent-space-blue"
               type="radio"
               name="system"
               checked={dice.systemType === "rollTotal"}
@@ -34,6 +40,7 @@ export default function DiceSystemSelect() {
         <div className="flex justify-center">
           <label className="flex gap-1 w-35 justify-start">
             <input
+              className="accent-space-blue"
               type="radio"
               name="system"
               checked={dice.systemType === "countSuccesses"}
@@ -46,10 +53,11 @@ export default function DiceSystemSelect() {
         <div className="flex justify-center">
           <label className="flex gap-1 w-35 justify-start">
             <input
+              className="accent-space-blue"
               type="radio"
               name="system"
               checked={dice.systemType === "highestDie"}
-              onChange={() => dice.setSystemType("highestDie")}
+              onChange={() => setHighestDie()}
             />
             Highest Die
           </label>

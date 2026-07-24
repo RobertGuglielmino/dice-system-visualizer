@@ -9,6 +9,7 @@ export default function DiceScaleSelect() {
           <div className="flex justify-center">
             <label className="flex gap-1 w-35 justify-start">
               <input
+                className="accent-space-blue"
                 type="radio"
                 name="scale"
                 checked={dice.scaleType === "numDice"}
@@ -23,6 +24,7 @@ export default function DiceScaleSelect() {
           <div className="flex justify-center">
             <label className="flex gap-1 w-35 justify-start">
               <input
+                className="accent-space-blue"
                 type="radio"
                 name="scale"
                 checked={dice.scaleType === "mod"}
@@ -37,6 +39,7 @@ export default function DiceScaleSelect() {
           <div className="flex justify-center">
             <label className="flex gap-1 w-35 justify-start">
               <input
+                className="accent-space-blue"
                 type="radio"
                 name="scale"
                 checked={dice.scaleType === "numDrop"}

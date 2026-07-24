@@ -72,6 +72,7 @@ export function countSuccesses(
 
   return result;
 }
+
 export function highestDieProbability(
   num: number,
   sides: number,
@@ -93,7 +94,6 @@ export function highestDieProbability(
 
   return result;
 }
-
 
 export function highestDie(
   num: number,

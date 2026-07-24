@@ -1,34 +1,41 @@
 import type { ProbabilityVisualBlock } from "../types/types";
 
-interface SectionGraphProps {
+interface SectionGraphCountSuccessesProps {
   renderResults: ProbabilityVisualBlock[];
   label: string;
 }
 
-export default function SectionGraph2({ renderResults, label }: SectionGraphProps) {
-
+export default function SectionGraphCountSuccesses({
+  renderResults,
+  label,
+}: SectionGraphCountSuccessesProps) {
   const lastIndex = renderResults.length - 1;
 
-  return (<div className="flex flex-col w-50 h-full rounded-lg transition-all duration-300 ease-in-out select-none py-">
-    <div className="text-center text-xl text-gray-800">{label}</div>
+  return (
+    <div className="flex flex-col w-50 h-full rounded-lg transition-all duration-300 ease-in-out select-none py-">
+      <div className="text-center text-xl text-gray-800">{label}</div>
       <div className="flex flex-col w-20 h-full rounded-lg transition-all duration-300 ease-in-out select-none">
         {renderResults.map(({ threshold, probability, count }, index) => {
-          
+          const displayNum =
+            threshold == 0 && count == 1 && probability == 100
+              ? 0
+              : Math.min(100, 1 * probability).toFixed(0);
 
-          const displayNum = (threshold == 0 && count == 1 && probability == 100 )? 0 : Math.min(100, 1 * probability).toFixed(0);
+          const reverseIndex = renderResults.length - index - 1;
 
           const bgColor =
             displayNum == 0
               ? "bg-gray-100"
               : index === lastIndex
                 ? "bg-gray-200"
-                : index === 0
+                : reverseIndex === 1
                   ? "bg-shamrock"
-                  : index === 1
+                  : reverseIndex === 2
                     ? "bg-tiger"
-                    : index === 2
+                    : reverseIndex === 3
                       ? "bg-bell-blue"
                       : "bg-bell-blue";
+
           return (
             <>
               <div

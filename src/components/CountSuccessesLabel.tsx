@@ -1,34 +1,35 @@
-import { useDice } from "../store/store";
+
 import type { ProbabilityVisualBlock } from "../types/types";
 
-interface SectionLabelProps {
+interface CountSuccessesLabelProps {
   renderResults: ProbabilityVisualBlock[];
 }
 
-export default function SectionLabel({ renderResults }: SectionLabelProps) {
-  const dice = useDice((state) => state);
+export default function CountSuccessesLabel({ renderResults }: CountSuccessesLabelProps) {
+  // const dice = useDice((state) => state);
 
   const lastIndex = renderResults.length - 1;
-  
 
   return (
     <div className="flex flex-col w-50 h-full rounded-lg transition-all duration-300 ease-in-out select-none">
-      <div className="text-center text-xs text-mist-50">num successes</div>
+      <div className="text-center text-xs">num successes</div>
       {renderResults.map(({ threshold, probability, count }, index) => {
         const displayNum =
           threshold == 0 && count == 1 && probability == 100
             ? 0
             : Math.min(100, 1 * probability).toFixed(0);
+              const reverseIndex = renderResults.length - index - 1;
+
         const textColor =
           displayNum == 0
             ? "text-gray-200"
             : index === lastIndex
               ? "text-gray-300"
-              : index === 0
+              : reverseIndex === 1
                 ? "text-shamrock"
-                : index === 1
+                : reverseIndex === 2
                   ? "text-tiger"
-                  : index === 2
+                  : reverseIndex === 3
                     ? "text-bell-blue"
                     : "text-bell-blue";
         return (
@@ -38,23 +39,7 @@ export default function SectionLabel({ renderResults }: SectionLabelProps) {
             }}
             className={`flex items-center justify-center text-center cursor-pointer text-3xl font-bold  ${textColor} overflow-hidden transition-all duration-300 ease-in-out`}
           >
-            {index === 0 && dice.successThreshold !== 0
-              ? dice.successThreshold
-              : ""}
-            {index === 1 &&
-              dice.successThreshold2 === 0 &&
-              `<${dice.successThreshold - 1}`}
-            {index === 1 &&
-              dice.successThreshold2 !== 0 &&
-              dice.successThreshold2}
-            {index === 2 &&
-              dice.successThreshold3 === 0 &&
-              `<${dice.successThreshold2 - 1}`}
-            {index === 2 &&
-              dice.successThreshold3 !== 0 &&
-              dice.successThreshold3}
-            {index > 3 ? dice.successThreshold3 - 1 : ""}
-            {index == 0 ? "+" : ""}
+            {renderResults.length - index - 1}
           </div>
         );
       })}

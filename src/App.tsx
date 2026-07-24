@@ -1,12 +1,5 @@
 import "./App.css";
-import {
-  countSuccesses,
-  countSuccessesProbability,
-  highestDie,
-  highestDieProbability,
-  rollTotal,
-  rollTotalProbability,
-} from "./utils/equations";
+
 import { useDice } from "./store/store";
 import DiceSystemSelect from "./components/DiceSystemSelect";
 import CountSuccesses from "./components/CountSuccesses";
@@ -17,55 +10,16 @@ import DiceScaleSelect from "./components/DiceScaleSelect";
 function App() {
   const dice = useDice((state) => state);
 
-  const sections = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-  function renderResults() {
-    switch (dice.systemType) {
-      case "rollTotal":
-        return rollTotal(dice.currentDiceNum, dice.currentDiceSize);
-      case "countSuccesses":
-        return countSuccesses(
-          dice.currentDiceNum,
-          dice.currentDiceSize,
-          dice.successThreshold,
-        );
-      case "highestDie":
-        return highestDie(
-          dice.currentDiceNum,
-          dice.currentDiceSize,
-          dice.dropNumber,
-        );
-      default:
-        return new Map<number, number>();
-    }
+  function setThresholdBounded(num: number) {
+    if (dice.systemType !== "rollTotal") {
+      dice.setSuccessThreshold(Math.min(num, dice.currentDiceSize));
+    } else dice.setSuccessThreshold(num);
   }
-
-  function renderProbabilities() {
-    switch (dice.systemType) {
-      case "rollTotal":
-        return rollTotalProbability(dice.currentDiceNum, dice.currentDiceSize);
-      case "countSuccesses":
-        return countSuccessesProbability(
-          dice.currentDiceNum,
-          dice.currentDiceSize,
-          dice.successThreshold,
-        );
-      case "highestDie":
-        return highestDieProbability(
-          dice.currentDiceNum,
-          dice.currentDiceSize,
-          dice.dropNumber,
-        );
-      default:
-        return new Map<number, number>();
-    }
-  }
-  console.log("count Sucesses", countSuccesses(dice.currentDiceNum, dice.currentDiceSize, dice.successThreshold));
-  console.log("count Probabilities", countSuccessesProbability(dice.currentDiceNum, dice.currentDiceSize, dice.successThreshold));
 
   return (
     <>
-      <div className="flex flex-row justify-around px-32 py-8 transition-all duration-300 ease-in-out bg-mist-50 min-h-screen">
+      <div className="flex flex-row justify-around px-32 py-8 transition-all duration-300 ease-in-out bg-ivory min-h-screen">
         <div className="flex flex-col p-2 gap-8 items-center">
           <div className="flex flex-row items-center w-full">
             <div className="flex flex-row items-center w-full">
@@ -117,7 +71,7 @@ function App() {
                       value={dice.successThreshold}
                       className="text-right w-12 border border-gray-400 rounded"
                       onChange={(e) =>
-                        dice.setSuccessThreshold(Number(e.target.value))
+                        setThresholdBounded(Number(e.target.value))
                       }
                     />
                   </div>
@@ -147,7 +101,7 @@ function App() {
                       value={dice.successThreshold}
                       className="text-right w-12 border border-gray-400 rounded"
                       onChange={(e) =>
-                        dice.setSuccessThreshold(Number(e.target.value))
+                        setThresholdBounded(Number(e.target.value))
                       }
                     />
                   </div>
@@ -177,7 +131,9 @@ function App() {
                         value={dice.successThreshold}
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
-                          dice.setSuccessThreshold(Math.max(Number(e.target.value), 0))
+                          setThresholdBounded(
+                            Math.max(Number(e.target.value), 0),
+                          )
                         }
                       />
                     </div>
@@ -194,7 +150,9 @@ function App() {
                         value={dice.successThreshold2}
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
-                          dice.setSuccessThreshold2(Math.max(Number(e.target.value), 0))
+                          dice.setSuccessThreshold2(
+                            Math.max(Number(e.target.value), 0),
+                          )
                         }
                       />
                     </div>
@@ -211,7 +169,9 @@ function App() {
                         value={dice.successThreshold3}
                         className="text-right w-12 border border-gray-400 rounded"
                         onChange={(e) =>
-                          dice.setSuccessThreshold3(Math.max(Number(e.target.value), 0))
+                          dice.setSuccessThreshold3(
+                            Math.max(Number(e.target.value), 0),
+                          )
                         }
                       />
                     </div>
@@ -241,7 +201,6 @@ function App() {
             {dice.systemType === "highestDie" && (
               <HighestDie renderResults={undefined} />
             )}
-
           </div>
         </div>
       </div>
