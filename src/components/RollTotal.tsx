@@ -6,7 +6,6 @@ import { rollTotal } from "../utils/equations";
 import { probabilityGroups } from "../utils/probabilityGroups";
 
 interface RollTotalProps {
-  renderResults: Map<number, number>;
 }
 
 export default function RollTotal({}: RollTotalProps) {

@@ -193,13 +193,13 @@ function App() {
         <div className="flex flex-row justify-center items-center gap-6">
           <div className="flex flex-row w-100 h-200 rounded-lg">
             {dice.systemType === "rollTotal" && (
-              <RollTotal renderResults={undefined} />
+              <RollTotal  />
             )}
             {dice.systemType === "countSuccesses" && (
-              <CountSuccesses renderResults={undefined} />
+              <CountSuccesses />
             )}
             {dice.systemType === "highestDie" && (
-              <HighestDie renderResults={undefined} />
+              <HighestDie  />
             )}
           </div>
         </div>

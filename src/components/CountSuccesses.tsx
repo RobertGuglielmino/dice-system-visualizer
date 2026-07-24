@@ -5,7 +5,6 @@ import CountSuccessesLabel from "./CountSuccessesLabel";
 import SectionGraphCountSuccesses from "./SectionGraphCountSuccesses";
 
 interface CountSuccessesProps {
-  renderResults: Map<number, number>;
 }
 
 export default function CountSuccesses({}: CountSuccessesProps) {
@@ -32,7 +31,7 @@ export default function CountSuccesses({}: CountSuccessesProps) {
   function countSuccessesToRenderResults(
     countSuccessOutput: Map<number, number>,
   ): ProbabilityVisualBlock[] {
-    const output = [];
+    const output: ProbabilityVisualBlock[] = [];
     countSuccessOutput.forEach((value, key) =>
       output.push({
         threshold: key,

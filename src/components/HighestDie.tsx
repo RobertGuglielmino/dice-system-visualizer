@@ -6,7 +6,6 @@ import { highestDie } from "../utils/equations";
 import { probabilityGroups } from "../utils/probabilityGroups";
 
 interface SectionGraphProps {
-  renderResults: Map<number, number>;
 }
 
 export default function HighestDie({}: SectionGraphProps) {
